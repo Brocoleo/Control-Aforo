@@ -1,20 +1,21 @@
-from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo, ObjectId
+from flask import Flask, jsonify, request
+from flask_pymongo import PyMongo
 from flask_cors import CORS
 
-# Iniciacion de servicios
+from bson import ObjectId
+
+# Instantiation
 app = Flask(__name__)
-app.config['MONGO_URI']='mongodb://localhost/phytonreactdb'
+app.config['MONGO_URI'] = 'mongodb://localhost/pythonreact'
 mongo = PyMongo(app)
 
-# Mediador
+# Settings
 CORS(app)
 
-db = mongo.db.users
+# Database
+db = mongo.db.pythonreact
 
-
-# Rutas
-# Crear usuario
+# Routes
 @app.route('/users', methods=['POST'])
 def createUser():
   print(request.json)
@@ -25,7 +26,7 @@ def createUser():
   })
   return jsonify(str(ObjectId(id)))
 
-#Obtener usuarios
+
 @app.route('/users', methods=['GET'])
 def getUsers():
     users = []
@@ -38,7 +39,6 @@ def getUsers():
         })
     return jsonify(users)
 
-#Obtener usuario
 @app.route('/users/<id>', methods=['GET'])
 def getUser(id):
   user = db.find_one({'_id': ObjectId(id)})
@@ -50,13 +50,12 @@ def getUser(id):
       'password': user['password']
   })
 
-#Eliminar usuarios
+
 @app.route('/users/<id>', methods=['DELETE'])
 def deleteUser(id):
   db.delete_one({'_id': ObjectId(id)})
   return jsonify({'message': 'User Deleted'})
 
-#Actualizar usuarios
 @app.route('/users/<id>', methods=['PUT'])
 def updateUser(id):
   print(request.json)
