@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
 
-export const Users = () => {
+export const Estudiantes = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,6 @@ export const Users = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({
           name,
@@ -35,7 +34,6 @@ export const Users = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({
           name,
