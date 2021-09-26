@@ -61,7 +61,7 @@ export const Estudiantes = () => {
   };
 
   const deleteUser = async (id) => {
-    const userResponse = window.confirm("Are you sure you want to delete it?");
+    const userResponse = window.confirm("Estas seguro que quieres eliminar ?");
     if (userResponse) {
       const res = await fetch(`${API}/users/${id}`, {
         method: "DELETE",
@@ -93,6 +93,7 @@ export const Estudiantes = () => {
   return (
     <div className="row">
       <div className="col-md-4">
+      <h5>Formulario Estudiante</h5>
         <form onSubmit={handleSubmit} className="card card-body">
           <div className="form-group">
             <input
@@ -100,7 +101,7 @@ export const Estudiantes = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
               className="form-control"
-              placeholder="Name"
+              placeholder="Nombre"
               ref={nameInput}
               autoFocus
             />
@@ -111,7 +112,7 @@ export const Estudiantes = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               className="form-control"
-              placeholder="User's Email"
+              placeholder="Correo"
             />
           </div>
           <div className="form-group">
@@ -120,22 +121,23 @@ export const Estudiantes = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               className="form-control"
-              placeholder="User's Password"
+              placeholder="Contraseña"
             />
           </div>
           <button className="btn btn-primary btn-block">
-            {editing ? "Update" : "Create"}
+            {editing ? "Actualizar" : "Añadir"}
           </button>
         </form>
       </div>
       <div className="col-md-6">
+      <h4>Informacion Estudiantes</h4>
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Operations</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Contraseña</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -145,17 +147,11 @@ export const Estudiantes = () => {
                 <td>{user.email}</td>
                 <td>{user.password}</td>
                 <td>
-                  <button
-                    className="btn btn-secondary btn-sm btn-block"
-                    onClick={(e) => editUser(user._id)}
-                  >
-                    Edit
+                  <button className="btn btn-secondary btn-sm btn-block" onClick={(e) => editUser(user._id)}>
+                    Editar
                   </button>
-                  <button
-                    className="btn btn-danger btn-sm btn-block"
-                    onClick={(e) => deleteUser(user._id)}
-                  >
-                    Delete
+                  <button className="btn btn-danger btn-sm btn-block" onClick={(e) => deleteUser(user._id)} >
+                    Eliminar
                   </button>
                 </td>
               </tr>

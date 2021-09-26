@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../assets/aforo.png'
 import {Link} from 'react-router-dom'
 
-export const Navbar = () => (    
+export const NavbarAsistente = () => (    
        
  
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -13,21 +13,7 @@ export const Navbar = () => (
     </button>
 
     <div className="collapse navbar-collapse" id="navbarColor01">
-      <ul className="navbar-nav me-auto">
-        <li className="nav-item">
-        <Link className="nav-link" to="/evento">Evento</Link>        
-        </li>
-        <li className="nav-item">
-        <Link className="nav-link" to="/profesores">Profesores</Link>
-        </li>
-        <li className="nav-item">
-        <Link className="nav-link" to="/estudiantes">Estudiantes</Link>
-        </li>
-        <li className="nav-item">
-        <Link className="nav-link" to="/about">About</Link>
-        </li>
-        
-      </ul>
+     
       
     </div>
   </div>
