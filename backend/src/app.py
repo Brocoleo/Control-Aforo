@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required 
+from flask_jwt_extended import JWTManager
 
 from bson import ObjectId
 
@@ -9,6 +13,11 @@ app = Flask(__name__)
 # Database
 app.config['MONGO_URI'] = 'mongodb://localhost/controlaforo'
 mongo = PyMongo(app)
+
+#JWT
+app.config["JWT_SECRET_KEY"] = "asfg345mnkl76sm124ou8ay7tasdt"  # Change this!
+jwt = JWTManager(app)
+
 
 # Settings
 CORS(app)
@@ -19,6 +28,17 @@ profesor = mongo.db.profesores
 evento = mongo.db.evento
 
 
+
+# Token login
+@app.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
 
 
 # Rutas Estudiantes

@@ -9,6 +9,7 @@ const API = process.env.REACT_APP_API;
 
 const Admin = () => {
   let profes = [];
+  // eslint-disable-next-line
   const getTeachers = async () => {
     const res = await fetch(`${API}/teachers`);
     const data = await res.json();
