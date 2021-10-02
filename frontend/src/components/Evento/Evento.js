@@ -4,18 +4,16 @@ import Select from 'react-select'
 
 const API = process.env.REACT_APP_API;
 
-const ramos = [
-  { value: 'Intro a la Programacion', label: "Intro a la Programacion" },
-  { value: "Calculo 1", label: "Calculo 1" }
-];
 
-export const Evento = (data) => {
+
+export const Evento = ({listaprofes, listaramos}) => {
+  let dataprofes = {listaprofes}
+  let dataramos = {listaramos}
   const [lugar, setLugar] = useState("");
   const [aforo, setAforo] = useState("");
   const [fecha, setFecha] = useState("");
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
-
   let initialProfesor = { profesorKey: null };
   let initialRamo = { ramoKey: null };
   const [ramoNombre, setRamo] = useState(initialRamo);
@@ -147,13 +145,14 @@ export const Evento = (data) => {
               placeholder="Aforo"
             />
           </div>
+ 
           <div className="form-group">
-          <Select             
+              <Select             
               placeholder="Ramo"
-              value={ramos.filter(({ value }) => value === (ramoNombre.ramoKey))}
+              value={dataramos.listaramos.filter(({ value }) => value === (ramoNombre.ramoKey))}
               getOptionValue={({ value }) => value}
               onChange={({ value }) => updateRamo(value)}
-              options={ramos}
+              options={dataramos.listaramos}
               theme={(theme) => ({
                 ...theme,
                 borderRadius: 0,
@@ -169,10 +168,10 @@ export const Evento = (data) => {
           <div className="form-group">
               <Select             
               placeholder="Profesor"
-              value={data.profes.filter(({ value }) => value === (profesorName.profesorKey))}
+              value={dataprofes.listaprofes.filter(({ value }) => value === (profesorName.profesorKey))}
               getOptionValue={({ value }) => value}
               onChange={({ value }) => updateProfesor(value)}
-              options={data.profes}
+              options={dataprofes.listaprofes}
               theme={(theme) => ({
                 ...theme,
                 borderRadius: 0,

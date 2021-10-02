@@ -26,6 +26,7 @@ CORS(app)
 estudiante = mongo.db.estudiantes
 profesor = mongo.db.profesores
 evento = mongo.db.evento
+modulo = mongo.db.modulos
 
 
 
@@ -217,6 +218,56 @@ def updateEvento(id):
 
 
 ###################################################
+# Rutas Modulos
+@app.route('/modulos', methods=['POST'])
+def createModulo():
+  print(request.json)
+  id = modulo.insert({
+    'capacidad': request.json['capacidad'],
+    'ramo': request.json['ramo'],
+    'carrera': request.json['carrera'],
+  })
+  return jsonify(str(ObjectId(id)))
 
+
+@app.route('/modulos', methods=['GET'])
+def getModulos():
+    modulos = []
+    for doc in modulo.find():
+        modulos.append({
+            '_id': str(ObjectId(doc['_id'])),
+            'capacidad': doc['capacidad'],
+            'ramo': doc['ramo'],
+            'carrera': doc['carrera'],
+        })
+    return jsonify(modulos)
+
+@app.route('/modulos/<id>', methods=['GET'])
+def getModulo(id):
+  moduloX = modulo.find_one({'_id': ObjectId(id)})
+  print(moduloX)
+  return jsonify({
+      '_id': str(ObjectId(moduloX['_id'])),
+      'capacidad': moduloX['capacidad'],
+      'ramo': moduloX['ramo'],
+      'carrera': moduloX['carrera']
+  })
+
+
+@app.route('/modulos/<id>', methods=['DELETE'])
+def deleteModulo(id):
+  modulo.delete_one({'_id': ObjectId(id)})
+  return jsonify({'message': 'User Deleted'})
+
+@app.route('/modulos/<id>', methods=['PUT'])
+def updateModulo(id):
+  print(request.json)
+  modulo.update_one({'_id': ObjectId(id)}, {"$set": {
+    'capacidad': request.json['capacidad'],
+    'ramo': request.json['ramo'],
+    'carrera': request.json['carrera'],
+  }})
+  return jsonify({'message': 'User Updated'})
+  ###################################################
 if __name__ == "__main__":
     app.run(debug=True)

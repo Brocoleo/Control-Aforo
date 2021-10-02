@@ -1,7 +1,7 @@
 import React from "react";
-//import Admin from "./screens/Admin";
+import Admin from "./screens/Admin";
 //import Asistente from "./screens/Asistente";
-import Login from "./screens/Login";
+//import Login from "./screens/Login";
 
 
 
@@ -10,9 +10,9 @@ import Login from "./screens/Login";
 function App() {
   return (
     
-   //<Admin />
+   <Admin />
    //<Asistente/>
-   <Login />
+   //<Login />
   );
 }
 
