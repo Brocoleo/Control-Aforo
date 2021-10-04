@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from 'react-select'
+import DatePicker from 'react-date-picker';
 
 
 const API = process.env.REACT_APP_API;
@@ -7,11 +8,11 @@ const API = process.env.REACT_APP_API;
 
 
 export const Evento = ({listaprofes, listaramos}) => {
+  const [fecha, setFecha] = useState(new Date());
   let dataprofes = {listaprofes}
   let dataramos = {listaramos}
   const [lugar, setLugar] = useState("");
   const [aforo, setAforo] = useState("");
-  const [fecha, setFecha] = useState("");
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
   let initialProfesor = { profesorKey: null };
@@ -34,6 +35,7 @@ export const Evento = ({listaprofes, listaramos}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(fecha)
     let profesor = profesorName.profesorKey
     let ramo = ramoNombre.ramoKey
     if (!editing) {
@@ -76,7 +78,7 @@ export const Evento = ({listaprofes, listaramos}) => {
     setAforo("");
     setRamo(initialRamo)
     setProfesor(initialProfesor);
-    setFecha("")
+    setFecha(new Date())
     lugarInput.current.focus();
   };
 
@@ -184,27 +186,24 @@ export const Evento = ({listaprofes, listaramos}) => {
             />
           </div>
       
-            <div className="form-group">
-            <input
-              type="text"
-              onChange={(e) => setFecha(e.target.value)}
+          <div className="form-group">
+            <DatePicker
+              onChange={setFecha}
               value={fecha}
-              className="form-control"
-              placeholder="Fecha"
-              autoFocus
             />
-          </div>
-          
+          </div>  
+
+         
         
           <button className="btn btn-primary btn-block">
             {editing ? "Actualizar" : "Añadir"}
           </button>
         </form>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 tabla">
       <h4>Informacion Eventos</h4>
-        <table className="table table-striped">
-          <thead>
+        <table className="table table-responsive-sm table-secondary borderTable">
+          <thead className="table-dark">
             <tr>
               <th>Lugar</th>
               <th>Aforo</th>

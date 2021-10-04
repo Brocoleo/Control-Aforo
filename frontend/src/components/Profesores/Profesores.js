@@ -128,10 +128,10 @@ export const Profesores = () => {
           </button>
         </form>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 tabla">
       <h4>Informacion Profesores</h4>
-        <table className="table table-striped">
-          <thead>
+        <table className="table table-responsive-sm table-secondary borderTable">
+          <thead className="table-dark">
             <tr>
               <th>Nombre</th>
               <th>Correo</th>
@@ -139,7 +139,7 @@ export const Profesores = () => {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>

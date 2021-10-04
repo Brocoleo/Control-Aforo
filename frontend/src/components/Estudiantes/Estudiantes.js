@@ -129,10 +129,10 @@ export const Estudiantes = () => {
           </button>
         </form>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 tabla  ">
       <h4>Informacion Estudiantes</h4>
-        <table className="table table-striped">
-          <thead>
+        <table className="table table-responsive-sm table-secondary borderTable">
+          <thead className="table-dark">
             <tr>
               <th>Nombre</th>
               <th>Correo</th>

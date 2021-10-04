@@ -1,6 +1,7 @@
-import React, {  useEffect } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Navbar } from "../components/Navbar";
+import Navbar from '../components/Navbar/Navbar'
+import Sidebar from '../components/Sidebar/Sidebar'
 import { Modulos } from "../components/Modulos/Modulos";
 import { Estudiantes } from "../components/Estudiantes/Estudiantes";
 import { Profesores } from "../components/Profesores/Profesores";
@@ -27,18 +28,22 @@ const Admin = () => {
     ))
   
   };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     getTeachers(); 
-    console.log(profes)
     getRamos(); 
-    console.log(ramos)
 // eslint-disable-next-line
   }, [getTeachers, getRamos]);
     return (
-        <Router>
-      <Navbar />
-      <div className="container p-4">
+      <Router>
+      <Navbar toggle={toggle} />
+      <Sidebar isOpen={isOpen} toggle={toggle} />
+      <div className="container p-4 contenido">
 
         <Switch>
           <Route path='/modulos'>
