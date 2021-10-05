@@ -1,11 +1,11 @@
 import React, {  useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from '../components/Navbar/Navbar'
-import Sidebar from '../components/Sidebar/Sidebar'
-import { Modulos } from "../components/Modulos/Modulos";
-import { Estudiantes } from "../components/Estudiantes/Estudiantes";
-import { Profesores } from "../components/Profesores/Profesores";
-import { Evento } from "../components/Evento/Evento";
+import Navbar from '../components/Administrador/Navbar/Navbar'
+import Sidebar from '../components/Administrador/Sidebar/Sidebar'
+import { Modulos } from "../components/Administrador/Modulos/Modulos";
+import { Estudiantes } from "../components/Administrador/Estudiantes/Estudiantes";
+import { Profesores } from "../components/Administrador/Profesores/Profesores";
+import { Evento } from "../components/Administrador/Evento/Evento";
 const API = process.env.REACT_APP_API;
 
 const Admin = () => {
@@ -44,11 +44,8 @@ const Admin = () => {
       <Navbar toggle={toggle} />
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <div className="container p-4 contenido">
-
         <Switch>
-          <Route path='/modulos'>
-            <Modulos profes={profes}/>
-          </Route>
+          <Route path='/modulos'> <Modulos profes={profes}/></Route>
           <Route path="/estudiantes" component={Estudiantes} />
           <Route path="/profesores" component={Profesores} />
           <Route path='/evento'>

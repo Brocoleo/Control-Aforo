@@ -200,7 +200,7 @@ export const Modulos = (data) => {
                 <td>{modulo.ramo}</td>
                 <td>{modulo.carrera}</td>
                 <td>
-                  <button className="btn btn-secondary btn-sm btn-block" onClick={(e) => editModulo(modulo._id)}>
+                  <button className="btn btn-warning btn-sm btn-block" onClick={(e) => editModulo(modulo._id)}>
                     Editar
                   </button>
                   <button className="btn btn-danger btn-sm btn-block" onClick={(e) => deleteModulo(modulo._id)} >

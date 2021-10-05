@@ -162,7 +162,8 @@ def createEvento():
     'aforo': request.json['aforo'],
     'ramo': request.json['ramo'],
     'profesor': request.json['profesor'],
-    'fecha': request.json['fecha']
+    'fecha': request.json['fecha'],
+    'bloque': request.json['bloque']
   })
   return jsonify(str(ObjectId(id)))
 
@@ -177,7 +178,8 @@ def getEventos():
             'aforo': doc['aforo'],
             'ramo': doc['ramo'],
             'profesor': doc['profesor'],
-            'fecha': doc['fecha']
+            'fecha': doc['fecha'],
+            'bloque': doc['bloque']
         })
     return jsonify(eventos)
 
@@ -191,14 +193,15 @@ def getEvento(id):
       'aforo': eventoX['aforo'],
       'ramo': eventoX['ramo'],
       'profesor': eventoX['profesor'],
-      'fecha': eventoX['fecha']
+      'fecha': eventoX['fecha'],
+      'bloque': eventoX['bloque']
   })
 
 
 @app.route('/eventos/<id>', methods=['DELETE'])
 def deleteEvento(id):
   evento.delete_one({'_id': ObjectId(id)})
-  return jsonify({'message': 'User Deleted'})
+  return jsonify({'message': 'Evento Eliminado'})
 
 @app.route('/eventos/<id>', methods=['PUT'])
 def updateEvento(id):
@@ -208,7 +211,8 @@ def updateEvento(id):
     'aforo': request.json['aforo'],
     'ramo': request.json['ramo'],
     'profesor': request.json['profesor'],
-    'fecha': request.json['fecha']
+    'fecha': request.json['fecha'],
+    'bloque': request.json['bloque']
   }})
   return jsonify({'message': 'User Updated'})
 

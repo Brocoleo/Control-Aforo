@@ -1,28 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from 'react-select'
-import DatePicker from 'react-date-picker';
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 
 const API = process.env.REACT_APP_API;
 
-
+const bloques = [
+  { value: '08:30', label: "08:30" },
+  { value: "09:40", label: "09:40" },
+  { value: '10:50', label: "10:50" },
+  { value: "12:00", label: "12:00" },
+  { value: '13:10', label: "13:10" },
+  { value: "14:20", label: "14:20" },
+  { value: '15:30', label: "15:30" },
+  { value: "16:40", label: "16:40" },
+  { value: '17:50', label: "17:50" },
+  { value: "19:00", label: "19:00" },
+];
 
 export const Evento = ({listaprofes, listaramos}) => {
-  const [fecha, setFecha] = useState(new Date());
+  let initialBloque = { bloqueKey: null };
+  let initialProfesor = { profesorKey: null };
+  let initialRamo = { ramoKey: null };
   let dataprofes = {listaprofes}
   let dataramos = {listaramos}
+  const [fecha, setFecha] = useState(new Date()); 
   const [lugar, setLugar] = useState("");
   const [aforo, setAforo] = useState("");
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
-  let initialProfesor = { profesorKey: null };
-  let initialRamo = { ramoKey: null };
   const [ramoNombre, setRamo] = useState(initialRamo);
+  const [hora, setHora] = useState(initialBloque);
   const [profesorName, setProfesor] = useState(initialProfesor);
-
 
   const updateProfesor = value => {
     setProfesor({ ...profesorName, profesorKey: value });
+  };
+
+  const updateBloque = value => {
+    setHora({ ...hora, bloqueKey: value });
   };
 
   const updateRamo = value => {
@@ -35,9 +52,9 @@ export const Evento = ({listaprofes, listaramos}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(fecha)
     let profesor = profesorName.profesorKey
     let ramo = ramoNombre.ramoKey
+    let bloque = hora.bloqueKey
     if (!editing) {
       const res = await fetch(`${API}/eventos`, {
         method: "POST",
@@ -49,7 +66,8 @@ export const Evento = ({listaprofes, listaramos}) => {
             aforo,
             ramo,
             profesor,
-            fecha
+            fecha,
+            bloque
         }),
       });
       await res.json();
@@ -64,7 +82,8 @@ export const Evento = ({listaprofes, listaramos}) => {
           aforo,
           ramo,
           profesor,
-          fecha
+          fecha,
+          bloque
         }),
       });
       const data = await res.json();
@@ -79,6 +98,7 @@ export const Evento = ({listaprofes, listaramos}) => {
     setRamo(initialRamo)
     setProfesor(initialProfesor);
     setFecha(new Date())
+    setHora(initialBloque)
     lugarInput.current.focus();
   };
 
@@ -105,7 +125,6 @@ export const Evento = ({listaprofes, listaramos}) => {
     const data = await res.json();
     setEditing(true);
     setId(id);
-
     // Reset
     setLugar(data.lugar);
     setAforo(data.aforo);
@@ -113,7 +132,9 @@ export const Evento = ({listaprofes, listaramos}) => {
     setRamo(initialRamo)
     initialProfesor={profesorKey:data.profesor}  
     setProfesor(initialProfesor)
-    setFecha(data.fecha)
+    setFecha(new Date(data.fecha))
+    initialBloque={bloqueKey:data.bloque}  
+    setHora(initialBloque)
     lugarInput.current.focus();
   };
 
@@ -185,16 +206,30 @@ export const Evento = ({listaprofes, listaramos}) => {
               })}
             />
           </div>
-      
-          <div className="form-group">
-            <DatePicker
-              onChange={setFecha}
-              value={fecha}
-            />
-          </div>  
 
-         
-        
+          <div className="form-group">
+              <Select             
+              placeholder="Hora"
+              value={bloques.filter(({ value }) => value === (hora.bloqueKey))}
+              getOptionValue={({ value }) => value}
+              onChange={({ value }) => updateBloque(value)}
+              options={bloques}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: 'primary50',
+                  primary: 'black',
+                },
+              })}
+            />
+          </div>
+
+          <div className="form-group">
+            <DatePicker className="form-control" selected={fecha} onChange={(date) => setFecha(date)} />
+          </div>
+
           <button className="btn btn-primary btn-block">
             {editing ? "Actualizar" : "Añadir"}
           </button>
@@ -210,6 +245,7 @@ export const Evento = ({listaprofes, listaramos}) => {
               <th>Ramo</th>
               <th>Profesor</th>
               <th>Fecha</th>
+              <th>Hora</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -220,9 +256,10 @@ export const Evento = ({listaprofes, listaramos}) => {
                 <td>{evento.aforo}</td>
                 <td>{evento.ramo}</td>
                 <td>{evento.profesor}</td>
-                <td>{evento.fecha}</td>
+                <td>{(new Date(evento.fecha)).toLocaleDateString() }</td>
+                <td>{evento.bloque}</td>
                 <td>
-                  <button className="btn btn-secondary btn-sm btn-block" onClick={(e) => editEvento(evento._id)}>
+                  <button className="btn btn-warning btn-sm btn-block" onClick={(e) => editEvento(evento._id)}>
                     Editar
                   </button>
                   <button className="btn btn-danger btn-sm btn-block" onClick={(e) => deleteEvento(evento._id)} >

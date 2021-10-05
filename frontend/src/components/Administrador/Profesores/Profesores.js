@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
 
-export const Estudiantes = () => {
+export const Profesores = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
 
@@ -17,7 +16,7 @@ export const Estudiantes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!editing) {
-      const res = await fetch(`${API}/users`, {
+      const res = await fetch(`${API}/teachers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +29,7 @@ export const Estudiantes = () => {
       });
       await res.json();
     } else {
-      const res = await fetch(`${API}/users/${id}`, {
+      const res = await fetch(`${API}/teachers/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -55,15 +54,15 @@ export const Estudiantes = () => {
   };
 
   const getUsers = async () => {
-    const res = await fetch(`${API}/users`);
+    const res = await fetch(`${API}/teachers`);
     const data = await res.json();
     setUsers(data);
   };
 
   const deleteUser = async (id) => {
-    const userResponse = window.confirm("Estas seguro que quieres eliminar ?");
+    const userResponse = window.confirm("Estas seguro que desear eliminar ?");
     if (userResponse) {
-      const res = await fetch(`${API}/users/${id}`, {
+      const res = await fetch(`${API}/teachers/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -73,7 +72,7 @@ export const Estudiantes = () => {
   };
 
   const editUser = async (id) => {
-    const res = await fetch(`${API}/users/${id}`);
+    const res = await fetch(`${API}/teachers/${id}`);
     const data = await res.json();
 
     setEditing(true);
@@ -93,7 +92,7 @@ export const Estudiantes = () => {
   return (
     <div className="row">
       <div className="col-md-4">
-      <h5>Formulario Estudiante</h5>
+      <h5>Formulario Profesor</h5>
         <form onSubmit={handleSubmit} className="card card-body">
           <div className="form-group">
             <input
@@ -129,8 +128,8 @@ export const Estudiantes = () => {
           </button>
         </form>
       </div>
-      <div className="col-md-6 tabla  ">
-      <h4>Informacion Estudiantes</h4>
+      <div className="col-md-6 tabla">
+      <h4>Informacion Profesores</h4>
         <table className="table table-responsive-sm table-secondary borderTable">
           <thead className="table-dark">
             <tr>
@@ -140,14 +139,14 @@ export const Estudiantes = () => {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.password}</td>
                 <td>
-                  <button className="btn btn-secondary btn-sm btn-block" onClick={(e) => editUser(user._id)}>
+                  <button className="btn btn-warning btn-sm btn-block" onClick={(e) => editUser(user._id)}>
                     Editar
                   </button>
                   <button className="btn btn-danger btn-sm btn-block" onClick={(e) => deleteUser(user._id)} >

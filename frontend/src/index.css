@@ -57,7 +57,7 @@ background: radial-gradient(circle, rgba(254,251,243,1) 47%, rgba(247,246,242,1)
   margin-top: 40px;
 }
 .borderTable {
-  padding: 1rem;
+  padding: 0rem;
   color: white;
   border-width: 2px;
   border-style: solid;

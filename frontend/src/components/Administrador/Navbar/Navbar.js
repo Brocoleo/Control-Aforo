@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
-import logo from '../../assets/aforo.png';
+import logo from '../../../assets/aforo.png';
 import { NavIcon, Bars } from './NavbarElements';
 import useStyles from './styles';
 
