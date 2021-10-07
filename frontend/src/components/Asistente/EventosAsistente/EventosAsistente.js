@@ -4,6 +4,7 @@ const EventosAsistente = ({eventos}) => {
     return (
         < >
       {eventos.map((evento, i) => (
+    <div className="col-md-8 info">
       <div className="card mb-3" key={i}>
           <h3 className="card-header" >{evento.ramo}</h3>
           <div className="list-group-item flex-column align-items-start">
@@ -24,8 +25,7 @@ const EventosAsistente = ({eventos}) => {
                     </div>
                 </li>
             </div>
-          
-         
+            </div>         
           ))}
           
         </>

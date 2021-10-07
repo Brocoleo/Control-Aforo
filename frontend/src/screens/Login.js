@@ -34,7 +34,7 @@ import logo from '../assets/aforo.png'
 
                 <button type="submit" className="btn btn-primary btn-block">Registrarme</button>
                 <p className="forgot-password text-right">
-                <a href="#">Olvidaste  tu constraseña ?</a>
+                <a href="/#">Olvidaste  tu constraseña ?</a>
                 </p>
             </form>
          </div>

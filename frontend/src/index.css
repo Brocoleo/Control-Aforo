@@ -62,7 +62,10 @@ background: radial-gradient(circle, rgba(254,251,243,1) 47%, rgba(247,246,242,1)
   border-width: 2px;
   border-style: solid;
 }
-
+.info{
+  float: none;
+  margin: 0 auto;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

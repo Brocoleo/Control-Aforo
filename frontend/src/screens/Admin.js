@@ -6,6 +6,7 @@ import { Modulos } from "../components/Administrador/Modulos/Modulos";
 import { Estudiantes } from "../components/Administrador/Estudiantes/Estudiantes";
 import { Profesores } from "../components/Administrador/Profesores/Profesores";
 import { Evento } from "../components/Administrador/Evento/Evento";
+import Solicitudes from '../components/Administrador/Solicitudes/Solicitudes';
 const API = process.env.REACT_APP_API;
 
 const Admin = () => {
@@ -45,6 +46,7 @@ const Admin = () => {
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <div className="container p-4 contenido">
         <Switch>
+        <Route path='/admin'> <Solicitudes /> </Route>
           <Route path='/modulos'> <Modulos profes={profes}/></Route>
           <Route path="/estudiantes" component={Estudiantes} />
           <Route path="/profesores" component={Profesores} />

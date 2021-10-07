@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import EventosAsistente from '../components/Asistente/EventosAsistente/EventosAsistente';
-import  InfoPersonal  from '../components/Asistente/InfoPersonal/InfoPersonal';
+import  {InfoPersonal}  from '../components/Asistente/InfoPersonal/InfoPersonal';
 import  NavbarAsistente  from "../components/Asistente/NavbarAsistente/NavbarAsistente";
 import SidebarAsistente from '../components/Asistente/SidebarAsistente/SidebarAsistente'
 const API = process.env.REACT_APP_API;
