@@ -7,6 +7,7 @@ import {
 import Admin from "./screens/Admin";
 import Asistente from "./screens/Asistente";
 import Login from "./screens/Login";
+import Register from "./screens/Register";
 
 
 
@@ -20,11 +21,15 @@ function App() {
             <Admin />
             </Route>
             <Route path="/asistente">
-            <Asistente/>
+            <Asistente />
+            </Route>
+            <Route path="/registrar">
+            <Register />
             </Route>
             <Route path="/">
             <Login />
             </Route>
+            
         </Switch>
       </Router>
    

@@ -1,17 +1,36 @@
 import React, { useState } from "react";
 import logo from '../assets/aforo.png'
+import { login } from '../components/UserFunction'
+import { useHistory } from "react-router-dom";
 
  const Login = () =>  {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const history = useHistory();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const user = {
+            email: email,
+            password: password
+        }
+
+        login(user).then(res => {
+            console.log(res)
+            if (!res.error) {
+                history.push(`/asistente`)
+            }
+        })
+      };
    
         return (
 
         <div className="auth-wrapper">
             <div className="auth-inner">
-            <img src={logo} alt="Me Anoto" height="80px" style={{ marginLeft: '13%' }}/>
-            <form>
-                <h3>Registrate</h3>
+            <img src={logo} alt="Me Anoto" height="80px" style={{ marginLeft: '7%' }}/>
+            <form onSubmit={handleSubmit}>
+                <h3>Inicia Sesión</h3>
 
                 <div className="form-group">
                     <label>Correo</label>
@@ -25,17 +44,13 @@ import logo from '../assets/aforo.png'
                     placeholder="Ingresa tu contraseña" onChange={(e)=> setPassword(e.target.value)}/>
                 </div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Recuerdame</label>
-                    </div>
-                </div>
+                
 
-                <button type="submit" className="btn btn-primary btn-block">Registrarme</button>
+                <button type="submit" className="btn btn-primary btn-block" >Iniciar Sesion</button>
                 <p className="forgot-password text-right">
                 <a href="/#">Olvidaste  tu constraseña ?</a>
                 </p>
+                <a href="/registrar"><h6 className="text-center register">Registrate ingresando aqui</h6></a>
             </form>
          </div>
         </div>

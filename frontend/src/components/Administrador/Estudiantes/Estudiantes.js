@@ -4,9 +4,8 @@ const API = process.env.REACT_APP_API;
 
 export const Estudiantes = () => {
   const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
 
@@ -24,8 +23,8 @@ export const Estudiantes = () => {
         },
         body: JSON.stringify({
           name,
-          email,
-          password,
+          lastname,
+          email
         }),
       });
       await res.json();
@@ -37,8 +36,8 @@ export const Estudiantes = () => {
         },
         body: JSON.stringify({
           name,
-          email,
-          password,
+          lastname,
+          email
         }),
       });
       const data = await res.json();
@@ -49,8 +48,8 @@ export const Estudiantes = () => {
     await getUsers();
 
     setName("");
+    setLastname("");
     setEmail("");
-    setPassword("");
     nameInput.current.focus();
   };
 
@@ -81,8 +80,8 @@ export const Estudiantes = () => {
 
     // Reset
     setName(data.name);
+    setLastname(data.lastname);
     setEmail(data.email);
-    setPassword(data.password);
     nameInput.current.focus();
   };
 
@@ -108,20 +107,21 @@ export const Estudiantes = () => {
           </div>
           <div className="form-group">
             <input
+              type="text"
+              onChange={(e) => setLastname(e.target.value)}
+              value={lastname}
+              className="form-control"
+              placeholder="Apellidos"
+              autoFocus
+            />
+          </div>
+          <div className="form-group">
+            <input
               type="email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               className="form-control"
               placeholder="Correo"
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="form-control"
-              placeholder="Contraseña"
             />
           </div>
           <button className="btn btn-primary btn-block">
@@ -135,8 +135,8 @@ export const Estudiantes = () => {
           <thead className="table-dark">
             <tr>
               <th>Nombre</th>
+              <th>Apellidos</th>
               <th>Correo</th>
-              <th>Contraseña</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -144,8 +144,8 @@ export const Estudiantes = () => {
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
+                <td>{user.lastname}</td>
                 <td>{user.email}</td>
-                <td>{user.password}</td>
                 <td>
                   <button className="btn btn-warning btn-sm btn-block" onClick={(e) => editUser(user._id)}>
                     Editar

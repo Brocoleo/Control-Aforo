@@ -2,14 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
 
-export const InfoPersonal = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ const InfoPersonal = ({name,password,id, email, setId, setName, setEmail, setPassword}) => {
 
-  const [editing, setEditing] = useState(true);
-  const [id, setId] = useState("615103f5f37ea73d0d34c88b");
 
+   const [editing, setEditing] = useState(true);
   const nameInput = useRef(null);
 
   const handleSubmit = async (e) => {
@@ -78,6 +74,7 @@ export const InfoPersonal = () => {
   return (
     <div className="row">
       <div className="col-md-6 info">
+      <p>{password}</p>
       <h5>Informacion Personal</h5>
         <form onSubmit={handleSubmit} className="card card-body">
           <div className="form-group">
@@ -121,3 +118,5 @@ export const InfoPersonal = () => {
     </div>
   );
 };
+
+export default InfoPersonal

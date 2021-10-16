@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+
 body {
   margin: 0;
-  background: rgb(254,251,243);
-background: radial-gradient(circle, rgba(254,251,243,1) 47%, rgba(247,246,242,1) 66%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: #B993D6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8CA6DB, #B993D6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #8CA6DB, #B993D6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+  font-family: 'Fira Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,7 +33,7 @@ background: radial-gradient(circle, rgba(254,251,243,1) 47%, rgba(247,246,242,1)
 }
 
 .auth-inner {
-  width: 450px;
+  width: 380px;
   margin: auto;
   background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
@@ -67,6 +70,66 @@ background: radial-gradient(circle, rgba(254,251,243,1) 47%, rgba(247,246,242,1)
   margin: 0 auto;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Fira Sans', sans-serif;
+}
+h1,h2,h3,h4,h5,h6,label,span {
+  font-weight: 500;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.register{
+  margin-top: 20px;
+}
+.btn-warning {
+  background: #F7971E;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFD200, #F7971E); 
+  background: linear-gradient(to right, #FFD200, #F7971E); 
+}
+
+.btn-danger {
+  background: #e52d27;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #b31217, #e52d27);  
+  background: linear-gradient(to right, #b31217, #e52d27); 
+}
+
+.btn-success {
+  background: #134E5E;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.btn-primary {
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+.card-body {
+  /* flex: 1 1 auto; */
+  min-height: 1px;
+  padding: 1.25rem;
+  border-radius: 5px;
+}
+.mb-3, .my-3 {
+  margin-bottom: 1rem!important;
+  border-radius: 5px;
+}
+
+.list-group-item+.list-group-item {
+  border-top-width: 0;
+  border-radius: 5px;
+}
+
+.solicitud {
+  position: relative;
+  display: block;
+  padding: .75rem 1.25rem;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 0px #fff;
+}
+
+.card-header {
+  color: #000;
 }

@@ -1,8 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+const API = process.env.REACT_APP_API;
 
 const Solicitudes = () => {
     let [eventos, setEventos] = useState([]);
 
+    const getEvento = async () => {
+      const res = await fetch(`${API}/eventos`);
+      const data = await res.json();
+      setEventos(data);
+    };
+
+    useEffect(() => {
+      getEvento(); 
+    }, []);
     return (
     <div className="row" >
         
@@ -21,7 +31,43 @@ const Solicitudes = () => {
                 <p className="mb-1">14:40</p>
                 </div>
             </div>
-                <li className="list-group-item d-flex justify-content-between align-items-center" >
+                <li className="solicitud d-flex justify-content-between align-items-center" >
+                    <button type="button" className="btn btn-success">Aceptar</button>
+                    <button type="button" className="btn btn-danger">Cancelar</button>                   
+                </li>
+            </div>
+            <div className="card mb-3" >
+          <h3 className="card-header" >Algebra</h3>
+          <div className="list-group-item flex-column align-items-start">
+                <div className="d-flex w-100 justify-content-between ">
+                <h5 className="mb-1">Profesor X</h5>
+                <h5>12/04/20</h5>
+                </div>
+                <div className="d-flex w-100 justify-content-between ">
+                <p className="mb-1">Sala 14</p>
+                <p className="mb-1">Aforo 23</p>
+                <p className="mb-1">14:40</p>
+                </div>
+            </div>
+                <li className="solicitud d-flex justify-content-between align-items-center" >
+                    <button type="button" className="btn btn-success">Aceptar</button>
+                    <button type="button" className="btn btn-danger">Cancelar</button>                   
+                </li>
+            </div>
+            <div className="card mb-3" >
+          <h3 className="card-header" >Idioma Extranjero</h3>
+          <div className="list-group-item flex-column align-items-start">
+                <div className="d-fl  ex w-100 justify-content-between ">
+                <h5 className="mb-1">Profesor X</h5>
+                <h5>12/04/20</h5>
+                </div>
+                <div className="d-flex w-100 justify-content-between ">
+                <p className="mb-1">Sala 6</p>
+                <p className="mb-1">Aforo 23</p>
+                <p className="mb-1">14:40</p>
+                </div>
+            </div>
+                <li className="solicitud d-flex justify-content-between align-items-center" >
                     <button type="button" className="btn btn-success">Aceptar</button>
                     <button type="button" className="btn btn-danger">Cancelar</button>                   
                 </li>

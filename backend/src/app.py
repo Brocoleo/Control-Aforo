@@ -1,11 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager 
 from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required 
-from flask_jwt_extended import JWTManager
-
+from flask_bcrypt import Bcrypt
+from datetime import datetime 
 from bson import ObjectId
 
 # Instantiation
@@ -13,6 +12,9 @@ app = Flask(__name__)
 # Database
 app.config['MONGO_URI'] = 'mongodb://localhost/controlaforo'
 mongo = PyMongo(app)
+
+#Datos encriptados
+bcrypt = Bcrypt(app)
 
 #JWT
 app.config["JWT_SECRET_KEY"] = "asfg345mnkl76sm124ou8ay7tasdt"  # Change this!
@@ -30,24 +32,64 @@ modulo = mongo.db.modulos
 
 
 
-# Token login
-@app.route("/login", methods=["POST"])
+# Rutas Login y Register
+
+@app.route('/users/register', methods=["POST"])
+def register():
+    name = request.get_json()['name']
+    lastname = request.get_json()['lastname']
+    email = request.get_json()['email']
+    password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
+    created = datetime.utcnow()
+
+    user_id = estudiante.insert({
+        'name': name,
+        'lastname': lastname,
+        'email': email,
+        'password': password,
+        'created': created 
+    })
+
+    new_user = estudiante.find_one({'_id': user_id})
+
+    result = {'email': new_user['email'] + ' registered'}
+
+    return jsonify({'result' : result})
+
+@app.route('/users/login', methods=['POST'])
 def login():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email != "test" or password != "test":
-        return jsonify({"msg": "Bad email or password"}), 401
+    print(request.json)
+    email = request.get_json()['email']
+    password = request.get_json()['password']
+    result = ""
+    response = estudiante.find_one({'email': email})
+    print(response)
+    if response:
+        isSamePassword = bcrypt.hashpw(new_password, stored_hash)
+        if bcrypt.check_password_hash(response['password'], password):          
+            access_token = create_access_token(identity = {
+                '_id': str(ObjectId(response['_id'])),
+                'name': response['name'],
+                'lastname': response['lastname'],
+                'password': response['password'],
+                'email': response['email']
+            })
+            result = jsonify({'token':access_token})
+        else:
+            result = jsonify({"error":"Invalid username and password"})
+    else:
+        result = jsonify({"result":"No results found"})
+    return result 
 
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
 
-
+###########################################
 # Rutas Estudiantes
 @app.route('/users', methods=['POST'])
 def createUser():
   print(request.json)
   id = estudiante.insert({
     'name': request.json['name'],
+    'lastname': request.json['lastname'],
     'email': request.json['email'],
     'password': request.json['password']
   })
@@ -61,6 +103,7 @@ def getUsers():
         users.append({
             '_id': str(ObjectId(doc['_id'])),
             'name': doc['name'],
+            'lastname': doc['lastname'],
             'email': doc['email'],
             'password': doc['password']
         })
@@ -73,6 +116,7 @@ def getUser(id):
   return jsonify({
       '_id': str(ObjectId(user['_id'])),
       'name': user['name'],
+      'lastname': user['lastname'],
       'email': user['email'],
       'password': user['password']
   })
@@ -88,10 +132,12 @@ def updateUser(id):
   print(request.json)
   estudiante.update_one({'_id': ObjectId(id)}, {"$set": {
     'name': request.json['name'],
+    'lastname': request.json['lastname'],
     'email': request.json['email'],
     'password': request.json['password']
   }})
   return jsonify({'message': 'User Updated'})
+
 
 
 ###################################################
