@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from 'react-select'
 import DatePicker from "react-datepicker";
-
+import FadeIn from 'react-fade-in';
 import "react-datepicker/dist/react-datepicker.css";
 
 const API = process.env.REACT_APP_API;
@@ -144,6 +144,7 @@ export const Evento = ({listaprofes, listaramos}) => {
   }, []);
 
   return (
+    <FadeIn>
     <div className="row">
       <div className="col-md-4">
       <h5>Formulario Evento</h5>
@@ -235,10 +236,10 @@ export const Evento = ({listaprofes, listaramos}) => {
           </button>
         </form>
       </div>
-      <div className="col-md-6 tabla">
+      <div className="col-md-6 tabla ">
       <h4>Informacion Eventos</h4>
-        <table className="table table-responsive-sm table-secondary borderTable">
-          <thead className="table-dark">
+        <table className="table table-responsive-sm table-secondary borderTable ">
+          <thead >
             <tr>
               <th>Lugar</th>
               <th>Aforo</th>
@@ -249,7 +250,7 @@ export const Evento = ({listaprofes, listaramos}) => {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-dark">
             {eventos.map((evento) => (
               <tr key={evento._id}>
                 <td>{evento.lugar}</td>
@@ -272,5 +273,6 @@ export const Evento = ({listaprofes, listaramos}) => {
         </table>
       </div>
     </div>
+    </FadeIn>
   );
 };

@@ -12,10 +12,13 @@ const API = process.env.REACT_APP_API;
 const Admin = () => {
   let profes = [];
   let ramos = [];
+  const [nroProfes, setNumeroProfes] = useState();
+  const [nroRamos, setNumeroRamos] = useState();
   // eslint-disable-next-line
   const getTeachers = async () => {
     const res = await fetch(`${API}/teachers`);
     const data = await res.json();
+    setNumeroProfes(data.length)
     data.map((teacher) => (      
       profes.push({ value: `${teacher.name}`, label: `${teacher.name}`})       
     ))
@@ -24,6 +27,7 @@ const Admin = () => {
   const getRamos = async () => {
     const res = await fetch(`${API}/modulos`);
     const data = await res.json();
+    setNumeroRamos(data.length)
     data.map((modulo) => (      
       ramos.push({ value: `${modulo.ramo}`, label: `${modulo.ramo}`})       
     ))
@@ -46,7 +50,7 @@ const Admin = () => {
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <div className="container p-4 contenido">
         <Switch>
-        <Route path='/admin'> <Solicitudes /> </Route>
+        <Route path='/admin'> <Solicitudes profes={nroProfes} ramos={nroRamos}/> </Route>
           <Route path='/modulos'> <Modulos profes={profes}/></Route>
           <Route path="/estudiantes" component={Estudiantes} />
           <Route path="/profesores" component={Profesores} />

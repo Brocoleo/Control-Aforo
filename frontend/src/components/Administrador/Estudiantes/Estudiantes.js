@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import FadeIn from 'react-fade-in';
 const API = process.env.REACT_APP_API;
 
 export const Estudiantes = () => {
@@ -90,6 +90,7 @@ export const Estudiantes = () => {
   }, []);
 
   return (
+    <FadeIn>
     <div className="row">
       <div className="col-md-4">
       <h5>Formulario Estudiante</h5>
@@ -132,7 +133,7 @@ export const Estudiantes = () => {
       <div className="col-md-6 tabla  ">
       <h4>Informacion Estudiantes</h4>
         <table className="table table-responsive-sm table-secondary borderTable">
-          <thead className="table-dark">
+          <thead >
             <tr>
               <th>Nombre</th>
               <th>Apellidos</th>
@@ -140,7 +141,7 @@ export const Estudiantes = () => {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-dark">
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
@@ -160,5 +161,6 @@ export const Estudiantes = () => {
         </table>
       </div>
     </div>
+    </FadeIn>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import FadeIn from 'react-fade-in';
 const API = process.env.REACT_APP_API;
 
 export const Profesores = () => {
@@ -90,6 +90,7 @@ export const Profesores = () => {
   }, []);
 
   return (
+    <FadeIn>
     <div className="row">
       <div className="col-md-4">
       <h5>Formulario Profesor</h5>
@@ -114,15 +115,7 @@ export const Profesores = () => {
               placeholder="Correo"
             />
           </div>
-          <div className="form-group">
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="form-control"
-              placeholder="Contraseña"
-            />
-          </div>
+
           <button className="btn btn-primary btn-block">
             {editing ? "Actualizar" : "Añadir"}
           </button>
@@ -131,20 +124,18 @@ export const Profesores = () => {
       <div className="col-md-6 tabla">
       <h4>Informacion Profesores</h4>
         <table className="table table-responsive-sm table-secondary borderTable">
-          <thead className="table-dark">
+          <thead >
             <tr>
               <th>Nombre</th>
               <th>Correo</th>
-              <th>Contraseña</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody className="table-dark">
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.password}</td>
                 <td>
                   <button className="btn btn-warning btn-sm btn-block" onClick={(e) => editUser(user._id)}>
                     Editar
@@ -159,5 +150,6 @@ export const Profesores = () => {
         </table>
       </div>
     </div>
+    </FadeIn>
   );
 };
