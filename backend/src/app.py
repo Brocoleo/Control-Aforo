@@ -17,7 +17,7 @@ mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
 #JWT
-app.config["JWT_SECRET_KEY"] = "asfg345mnkl76sm124ou8ay7tasdt"  # Change this!
+app.config["JWT_SECRET_KEY"] = "asfg345mnkl76sm124ou8ay7tasdt"  # Variable Entorno
 jwt = JWTManager(app)
 
 
@@ -65,7 +65,6 @@ def login():
     response = estudiante.find_one({'email': email})
     print(response)
     if response:
-        isSamePassword = bcrypt.hashpw(new_password, stored_hash)
         if bcrypt.check_password_hash(response['password'], password):          
             access_token = create_access_token(identity = {
                 '_id': str(ObjectId(response['_id'])),

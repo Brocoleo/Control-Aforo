@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
 
- const InfoPersonal = ({name,password,id, email, setId, setName, setEmail, setPassword}) => {
+ const InfoPersonal = ({name,lastname, password,id, email, setId, setName, setLastname, setEmail, setPassword}) => {
 
 
    const [editing, setEditing] = useState(true);
@@ -18,8 +18,8 @@ const API = process.env.REACT_APP_API;
         },
         body: JSON.stringify({
           name,
-          email,
-          password,
+          lastname,
+          email
         }),
       });
       await res.json();
@@ -31,8 +31,8 @@ const API = process.env.REACT_APP_API;
         },
         body: JSON.stringify({
           name,
-          email,
-          password,
+          lastname,
+          email
         }),
       });
       const data = await res.json();
@@ -43,8 +43,8 @@ const API = process.env.REACT_APP_API;
     await getUsers();
 
     setName("");
+    setLastname("");
     setEmail("");
-    setPassword("");
     nameInput.current.focus();
   };
 
@@ -74,11 +74,10 @@ const API = process.env.REACT_APP_API;
   return (
     <div className="row">
       <div className="col-md-6 info">
-      <p>{password}</p>
       <h5>Informacion Personal</h5>
         <form onSubmit={handleSubmit} className="card card-body">
           <div className="form-group">
-          <label for="nombre" class="col-form-label">Nombre</label>
+          <label for="nombre" className="col-form-label">Nombre</label>
             <input
               type="text"
               onChange={(e) => setName(e.target.value)}
@@ -89,7 +88,19 @@ const API = process.env.REACT_APP_API;
               autoFocus
             />
           </div>
-          <label for="email" class="col-form-label">Email</label>
+
+          <div className="form-group">
+          <label for="lastname" className="col-form-label">Apellidos</label>
+            <input
+              type="text"
+              onChange={(e) => setLastname(e.target.value)}
+              value={lastname}
+              className="form-control"
+              placeholder="Apellidos"
+            />
+          </div>
+
+          <label for="email" className="col-form-label">Email</label>
           <div className="form-group">
             <input
               type="email"
@@ -97,16 +108,6 @@ const API = process.env.REACT_APP_API;
               value={email}
               className="form-control"
               placeholder="Correo"
-            />
-          </div>
-          <div className="form-group">
-          <label for="contraseña" class="col-form-label">Contraseña</label>
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="form-control"
-              placeholder="Contraseña"
             />
           </div>
           <button className="btn btn-primary btn-block">

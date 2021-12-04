@@ -11,6 +11,7 @@ import {
 
 import { FaUserGraduate } from "react-icons/fa";  
 import { ImUsers } from "react-icons/im";
+import { AiFillHome } from "react-icons/ai";
 import { MdLibraryBooks } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
 
@@ -20,14 +21,15 @@ const Sidebar = ({ isOpen, toggle }) => {
       <Icon onClick={toggle}>
         <CloseIcon />
       </Icon>
-      <SidebarMenu>        
+      <SidebarMenu>   
+        <SidebarLink to='/admin'><AiFillHome />&nbsp;&nbsp;Inicio</SidebarLink>     
         <SidebarLink to='/evento'><IoCalendar />&nbsp;&nbsp;Evento</SidebarLink>
         <SidebarLink to='/profesores'><ImUsers />&nbsp;&nbsp;Profesores</SidebarLink>
         <SidebarLink to='/estudiantes'><FaUserGraduate />&nbsp;&nbsp;Estudiantes</SidebarLink>
         <SidebarLink to='/modulos'><MdLibraryBooks />&nbsp;&nbsp;Modulos</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/'>Cerrar Sesion</SidebarRoute>
+        <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>Cerrar Sesion</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

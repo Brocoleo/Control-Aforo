@@ -27,15 +27,16 @@ const Asistente = () => {
     };
 
     useEffect(() => {
+      
         const token = localStorage.usertoken
         const decoded = jwt_decode(token)
-        console.log(decoded.sub)
         setId(decoded.sub._id)
         setName(decoded.sub.name)
         setLastname(decoded.sub.lastname)
         setEmail(decoded.sub.email)
         setPassword(decoded.sub.password)
-        getEvento();     
+         
+        getEvento();    
       }, [eventos]);
 
     return (
@@ -45,7 +46,7 @@ const Asistente = () => {
        <div className="container p-4 contenido">
        <Switch>
           <Route path='/asistente'> <EventosAsistente eventos={eventos}/></Route>
-          <Route path='/informacion'><InfoPersonal name={name} password={password} id={id} email={email} setId={setId} setName={setName} setEmail={setEmail} setPassword={setPassword}/></Route>   
+          <Route path='/informacion'><InfoPersonal name={name} lastname={lastname} password={password} id={id} email={email} setId={setId} setName={setName} setLastname={setLastname} setEmail={setEmail} setPassword={setPassword}/></Route>   
         </Switch>     
       </div>
     </Router>

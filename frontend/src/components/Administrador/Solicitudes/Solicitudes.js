@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from 'react'
+import FadeIn from 'react-fade-in';
+import Grid from '@material-ui/core/Grid';
+import Modulos from './Modulos'
+import Eventos from './Eventos'
+import CountUp from 'react-countup';
+import  {CardModulos, DataUsers,CardEstudiantes,CardLink, CardTitle, DataEstudiantes, CardProfesores, DataProfesores, CardEventos, DataEventos} from './styles'
+import Profesores from './Profesores';
+import Estudiantes from './Estudiantes';
 const API = process.env.REACT_APP_API;
 
-const Solicitudes = () => {
+const Solicitudes = ({profes, ramos}) => {
     let [eventos, setEventos] = useState([]);
 
     const getEvento = async () => {
@@ -14,92 +22,90 @@ const Solicitudes = () => {
       getEvento(); 
     }, []);
     return (
-    <div className="row" >
-        
-    <div className="col-md-4 ">
-    <h4>Solicitudes de Sala</h4>
-      <div className="card mb-3" >
-          <h3 className="card-header" >Calculo 1</h3>
-          <div className="list-group-item flex-column align-items-start">
-                <div className="d-flex w-100 justify-content-between ">
-                <h5 className="mb-1">Profesor X</h5>
-                <h5>12/04/20</h5>
-                </div>
-                <div className="d-flex w-100 justify-content-between ">
-                <p className="mb-1">Sala 4</p>
-                <p className="mb-1">Aforo 23</p>
-                <p className="mb-1">14:40</p>
-                </div>
-            </div>
-                <li className="solicitud d-flex justify-content-between align-items-center" >
-                    <button type="button" className="btn btn-success">Aceptar</button>
-                    <button type="button" className="btn btn-danger">Cancelar</button>                   
-                </li>
-            </div>
-            <div className="card mb-3" >
-          <h3 className="card-header" >Algebra</h3>
-          <div className="list-group-item flex-column align-items-start">
-                <div className="d-flex w-100 justify-content-between ">
-                <h5 className="mb-1">Profesor X</h5>
-                <h5>12/04/20</h5>
-                </div>
-                <div className="d-flex w-100 justify-content-between ">
-                <p className="mb-1">Sala 14</p>
-                <p className="mb-1">Aforo 23</p>
-                <p className="mb-1">14:40</p>
-                </div>
-            </div>
-                <li className="solicitud d-flex justify-content-between align-items-center" >
-                    <button type="button" className="btn btn-success">Aceptar</button>
-                    <button type="button" className="btn btn-danger">Cancelar</button>                   
-                </li>
-            </div>
-            <div className="card mb-3" >
-          <h3 className="card-header" >Idioma Extranjero</h3>
-          <div className="list-group-item flex-column align-items-start">
-                <div className="d-fl  ex w-100 justify-content-between ">
-                <h5 className="mb-1">Profesor X</h5>
-                <h5>12/04/20</h5>
-                </div>
-                <div className="d-flex w-100 justify-content-between ">
-                <p className="mb-1">Sala 6</p>
-                <p className="mb-1">Aforo 23</p>
-                <p className="mb-1">14:40</p>
-                </div>
-            </div>
-                <li className="solicitud d-flex justify-content-between align-items-center" >
-                    <button type="button" className="btn btn-success">Aceptar</button>
-                    <button type="button" className="btn btn-danger">Cancelar</button>                   
-                </li>
-            </div>
-            </div>         
-            <div className="col-md-6 tabla">
-            <h4>Informacion Eventos</h4>
-              <table className="table table-responsive-sm table-secondary borderTable">
-                <thead className="table-dark">
-                  <tr>
-                    <th>Lugar</th>
-                    <th>Aforo</th>
-                    <th>Profesor</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
+      <FadeIn>
+      <div class="row">
+      <div class="col">
+      <Grid container spacing={2}> 
+      <Grid item xs>
+        <CardLink to="/modulos" style={{ textDecoration: 'none' }}>
+          <CardModulos>
+          <CardTitle>Modulos</CardTitle>
+          <Modulos />
+            <DataUsers>
+            <CountUp  start={0} end={ramos} duration={1} />
+            </DataUsers>
+          </CardModulos> 
+        </CardLink> 
+        </Grid>
+
+        <Grid item xs>
+        <CardLink to="/evento" style={{ textDecoration: 'none' }}>
+          <CardEventos>
+          <CardTitle>Eventos</CardTitle>
+          <Eventos />
+            <DataEventos>
+            <CountUp  start={0} end={eventos.length} duration={1} />
+            </DataEventos>
+          </CardEventos> 
+        </CardLink> 
+        </Grid>
+
+        <Grid item xs>
+        <CardLink to="/profesores" style={{ textDecoration: 'none' }}>
+          <CardProfesores>
+          <CardTitle>Profesores</CardTitle>
+          <Profesores />
+            <DataProfesores>
+            <CountUp  start={0} end={profes} duration={1} />
+            </DataProfesores>
+          </CardProfesores> 
+        </CardLink> 
+        </Grid>
+
+        <Grid item xs>
+        <CardLink to="/estudiantes" style={{ textDecoration: 'none' }}>
+          <CardEstudiantes>
+          <CardTitle>Estudiantes</CardTitle>
+          <Estudiantes />
+            <DataEstudiantes>
+            <CountUp  start={0} end={1} duration={1} />
+            </DataEstudiantes>
+          </CardEstudiantes> 
+        </CardLink> 
+        </Grid>
+      </Grid>  
+   </div>
+
+      <div class="col">
+      <div className=" tabla">
+      <h4>Eventos Agendados</h4>
+            <table className="table table-responsive-sm table-secondary borderTable">
+              <thead >
+                <tr >
+                  <th>Lugar</th>
+                  <th>Aforo</th>
+                  <th>Profesor</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                </tr>
+              </thead>
+              <tbody className="table-dark">
+                {eventos.map((evento) => (
+                  <tr key={evento._id}>
+                    <td>{evento.lugar}</td>
+                    <td>{evento.aforo}</td>
+                    <td>{evento.profesor}</td>
+                    <td>{(new Date(evento.fecha)).toLocaleDateString() }</td>
+                    <td>{evento.bloque}</td>
+                  
                   </tr>
-                </thead>
-                <tbody>
-                  {eventos.map((evento) => (
-                    <tr key={evento._id}>
-                      <td>{evento.lugar}</td>
-                      <td>{evento.aforo}</td>
-                      <td>{evento.profesor}</td>
-                      <td>{(new Date(evento.fecha)).toLocaleDateString() }</td>
-                      <td>{evento.bloque}</td>
-                    
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
         </div>
+        </div>
+        </div>
+      </FadeIn>
     )
 }
 

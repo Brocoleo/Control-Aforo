@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from 'react-select'
-
+import FadeIn from 'react-fade-in';
 
 const API = process.env.REACT_APP_API;
 
@@ -126,7 +126,9 @@ export const Modulos = (data) => {
   }, []);
 
   return (
+    <FadeIn>
     <div className="row">
+
       <div className="col-md-4">
       <h5>Formulario Modulo</h5>
         <form onSubmit={handleSubmit} className="card card-body">
@@ -185,7 +187,7 @@ export const Modulos = (data) => {
       <div className="col-md-6 tabla">
       <h4>Informacion Modulos</h4>
         <table className="table table-responsive-sm table-secondary borderTable ">
-          <thead className="table-dark ">
+          <thead >
             <tr>
               <th>Capacidad</th>
               <th>Ramo</th>
@@ -193,7 +195,7 @@ export const Modulos = (data) => {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-dark ">
             {modulos.map((modulo) => (
               <tr key={modulo._id}>
                 <td>{modulo.capacidad}</td>
@@ -213,5 +215,6 @@ export const Modulos = (data) => {
         </table>
       </div>
     </div>
+    </FadeIn>
   );
 };
